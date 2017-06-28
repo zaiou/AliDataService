@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+<!-- 开发中模式，显示sql语句	 -->
+	<logger name="com.lb.demo.user.mapper" level="DEBUG"
+			additivity="false">
+		<appender-ref ref="STDOUT" />
+	</logger>
+	
+	<logger name="com.lb.demo.role.mapper" level="DEBUG"
+			additivity="false">
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+<!-- 日志等级设置 -->
+	<root level="INFO" additivity="true">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration> 

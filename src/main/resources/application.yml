@@ -1,0 +1,25 @@
+server:
+ port: 6688
+ session-timeout: 3600
+ uri-encoding: UTF-8
+ context-path: /
+
+design:
+# 第一个数据库
+  alidataorder:
+   jdbc:
+    url: jdbc:mysql://127.0.0.1:3306/alidataorder?characterEncoding=utf8&allowMultiQueries=true
+    driver: com.mysql.jdbc.Driver
+    username: root
+    password: admin
+# 第二个数据库
+  alidataproduct:
+   jdbc:
+    url: jdbc:mysql://127.0.0.1:3306/alidataproduct?characterEncoding=utf8&allowMultiQueries=true
+    driver: com.mysql.jdbc.Driver
+    username: root
+    password: admin
+
+spring: datasource:initialize:false
+
+spring.session.store-type: none
