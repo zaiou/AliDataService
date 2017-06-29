@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lb.core.order.mapper.AliOrderMapper">
+  <resultMap id="BaseResultMap" type="com.lb.core.order.entity.AliOrder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ali_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lb.core.order.entity.AliOrder">
+    insert into ali_order (id)
+    values (#{id,jdbcType=INTEGER})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id
+    from ali_order
+  </select>
+</mapper>

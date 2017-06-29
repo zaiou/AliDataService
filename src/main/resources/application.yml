@@ -11,15 +11,17 @@ design:
     url: jdbc:mysql://127.0.0.1:3306/alidataorder?characterEncoding=utf8&allowMultiQueries=true
     driver: com.mysql.jdbc.Driver
     username: root
-    password: admin
+    password: root
 # 第二个数据库
   alidataproduct:
    jdbc:
     url: jdbc:mysql://127.0.0.1:3306/alidataproduct?characterEncoding=utf8&allowMultiQueries=true
     driver: com.mysql.jdbc.Driver
     username: root
-    password: admin
+    password: root
 
 spring: datasource:initialize:false
 
 spring.session.store-type: none
+
+
