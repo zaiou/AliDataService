@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +20,10 @@ import java.util.Map;
  */
 @RestController
 public class AdminController extends BaseController {
+    @Autowired
+    private HttpServletRequest request;
+    @Autowired
+    private HttpServletResponse response;
 
     private static Logger logger=Logger.getLogger(AdminController.class);
     @Autowired
@@ -36,9 +42,8 @@ public class AdminController extends BaseController {
         userMap.put("username",username);
         userMap.put("password",password);
 
-        Cookie userCookie=new Cookie(config.getCookie_field_key(),jsonHelper.objectToJson(userMap));
-        userCookie.setMaxAge(604800);
-        System.out.println(userCookie.getMaxAge());
+        this.setCookie(config.getCookie_field_key(),jsonHelper.objectToJson(userMap));
+        System.out.println(request.getCookies()+"********************************");
         return null;
     }
 }

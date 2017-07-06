@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ import java.util.Map;
 public class BaseController {
     @Autowired
     private HttpServletRequest request;
+    @Autowired
+    private HttpServletResponse response;
     @Autowired
     private ApplicationConfig config;
     @Autowired
@@ -69,8 +72,9 @@ public class BaseController {
         Cookie cookie=null;
         if(!Fn.isStrEmpty(cookies)) {
             for (Cookie coo : cookies) {
-                if (cookie!=null&&cookie.getName().equals(key))
+                if (coo!=null&&coo.getName().equals(key)){
                     cookie = coo;
+                }
             }
         }
         return cookie!=null?cookie.getValue():null;
@@ -86,6 +90,18 @@ public class BaseController {
         String userinfo=this.getCookie(config.getCookie_field_key());
         userInfo= jsonHelper.jsonToObject(userinfo,Map.class);
         return userInfo;
+    }
+
+    /**
+     * 保存用户登录信息到cookie
+     * @return
+     */
+    public void setCookie(String key,String value) {
+        Cookie cookie=new Cookie(key,value);
+        //设置路径，这个路径即该工程下都可以访问该cookie 如果不设置路径，那么只有设置该cookie路径及其子路径可以访问
+        cookie.setPath("/");
+        cookie.setMaxAge(604800);
+        response.addCookie(cookie);
     }
 }
 

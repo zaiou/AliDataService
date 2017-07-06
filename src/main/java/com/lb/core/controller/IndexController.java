@@ -19,8 +19,8 @@ public class IndexController extends BaseController {
     private OrderService orderService;
     @RequestMapping(value = "/")
     public Map<String,Object> index(){
-        System.out.println(orderService.getOrderList());
-        System.out.println(this.getUserInfo());
+//        System.out.println(orderService.getOrderList());
+        System.out.println(this.getUserInfo().get("username"));
         return RD.success("欢迎你").renderJson();
     }
 }
