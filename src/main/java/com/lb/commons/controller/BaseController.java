@@ -1,6 +1,7 @@
 package com.lb.commons.controller;
 
 import com.lb.commons.config.ApplicationConfig;
+import com.lb.commons.utils.Fn;
 import com.lb.commons.utils.JsonHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -66,10 +67,11 @@ public class BaseController {
     public String getCookie(String key){
         Cookie[] cookies= request.getCookies();
         Cookie cookie=null;
-        if(cookies!=null&&cookies.length>0) {
-            for (Cookie coo : cookies)
-                if (cookie.getName().equals(key))
+        if(!Fn.isStrEmpty(cookies)) {
+            for (Cookie coo : cookies) {
+                if (cookie!=null&&cookie.getName().equals(key))
                     cookie = coo;
+            }
         }
         return cookie!=null?cookie.getValue():null;
     }

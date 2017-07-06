@@ -43,7 +43,7 @@ public class JsonHelper {
         try {
             t=mapper.readValue(jsonData,cla);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("此json无法转换为Object");
         }
         return t;
     }

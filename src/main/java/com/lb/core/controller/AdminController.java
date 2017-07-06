@@ -1,6 +1,5 @@
 package com.lb.core.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lb.commons.config.ApplicationConfig;
 import com.lb.commons.controller.BaseController;
 import com.lb.commons.utils.JsonHelper;
@@ -29,15 +28,17 @@ public class AdminController extends BaseController {
     public Map<String,Object> login() throws Exception{
         String username=this.getPara("username");
         String password=this.getPara("password");
-        if(false){
-            logger.info("用户名或者密码错误");
-        }
-        logger.info("用户名或者密码错误");
+//        if(false){
+//            logger.info("用户名或者密码错误");
+//        }
+//        logger.info("用户名或者密码错误");
         Map<String,Object> userMap=new HashMap<>();
         userMap.put("username",username);
         userMap.put("password",password);
 
         Cookie userCookie=new Cookie(config.getCookie_field_key(),jsonHelper.objectToJson(userMap));
+        userCookie.setMaxAge(604800);
+        System.out.println(userCookie.getMaxAge());
         return null;
     }
 }

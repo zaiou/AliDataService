@@ -6,7 +6,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 /**
  * Created by LB on 2017/6/28.
  */
-
 @ConfigurationProperties("design.alidataproduct.jdbc")
 @EnableConfigurationProperties
 public class ProductDbProperty {
