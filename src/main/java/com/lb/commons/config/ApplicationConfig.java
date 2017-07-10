@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 public class ApplicationConfig {
 
     private String cookie_field_key;
+    private String des_key;
 
     public String getCookie_field_key() {
         return cookie_field_key;
@@ -27,6 +28,11 @@ public class ApplicationConfig {
     }
 
 
+    public String getDes_key() {
+        return des_key;
+    }
 
-
+    public void setDes_key(String des_key) {
+        this.des_key = des_key;
+    }
 }

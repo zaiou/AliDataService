@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -30,6 +29,12 @@ public class AdminController extends BaseController {
     private ApplicationConfig config;
     @Autowired
     private JsonHelper jsonHelper;
+
+    /**
+     * 登录
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/login")
     public Map<String,Object> login() throws Exception{
         String username=this.getPara("username");
@@ -42,8 +47,18 @@ public class AdminController extends BaseController {
         userMap.put("username",username);
         userMap.put("password",password);
 
-        this.setCookie(config.getCookie_field_key(),jsonHelper.objectToJson(userMap));
+        this.setCookie(config.getCookie_field_key(),this.encryptData(jsonHelper.objectToJson(userMap)));
         System.out.println(request.getCookies()+"********************************");
+        return null;
+    }
+
+    /**
+     * 退出登录
+     * @return
+     */
+    @RequestMapping(value ="/logout")
+    public Map<String,Object> logout(){
+        this.removeCookie(config.getCookie_field_key());
         return null;
     }
 }

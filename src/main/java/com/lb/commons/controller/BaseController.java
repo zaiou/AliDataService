@@ -1,6 +1,7 @@
 package com.lb.commons.controller;
 
 import com.lb.commons.config.ApplicationConfig;
+import com.lb.commons.utils.DESHelper;
 import com.lb.commons.utils.Fn;
 import com.lb.commons.utils.JsonHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,36 +64,6 @@ public class BaseController {
     }
 
     /**
-    * 根据key,获取相应cookie值
-    * @param
-    * @return
-    */
-    public String getCookie(String key){
-        Cookie[] cookies= request.getCookies();
-        Cookie cookie=null;
-        if(!Fn.isStrEmpty(cookies)) {
-            for (Cookie coo : cookies) {
-                if (coo!=null&&coo.getName().equals(key)){
-                    cookie = coo;
-                }
-            }
-        }
-        return cookie!=null?cookie.getValue():null;
-    }
-
-    /**
-    * cookie中获取用户信息
-    * @param
-    * @return
-    */
-    public Map<String,String> getUserInfo(){
-        Map<String,String> userInfo=new HashMap<>();
-        String userinfo=this.getCookie(config.getCookie_field_key());
-        userInfo= jsonHelper.jsonToObject(userinfo,Map.class);
-        return userInfo;
-    }
-
-    /**
      * 保存用户登录信息到cookie
      * @return
      */
@@ -102,6 +73,76 @@ public class BaseController {
         cookie.setPath("/");
         cookie.setMaxAge(604800);
         response.addCookie(cookie);
+    }
+
+    /**
+     * cookie中获取用户信息
+     * @param
+     * @return
+     */
+    public Map<String,String> getUserInfo(){
+        Map<String,String> userInfo=new HashMap<>();
+        String userinfo=this.getCookie(config.getCookie_field_key());
+        userInfo= jsonHelper.jsonToObject(userinfo,Map.class);
+        return userInfo;
+    }
+
+    /**
+    * 根据key,获取相应cookie值
+    * @param
+    * @return
+    */
+    public String getCookie(String key){
+        Cookie[] cookies= request.getCookies();
+        String cookieVal=null;
+        if(!Fn.isStrEmpty(cookies)) {
+            for (Cookie cookie : cookies) {
+                if (cookie!=null&&cookie.getName().equals(key)){
+                    cookieVal =this.decryptData(cookie.getValue());
+                }
+            }
+        }
+        return cookieVal;
+    }
+
+    /**
+     * 删除cookie
+     */
+    public void removeCookie(String key){
+        Cookie cookie=new Cookie(key,null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+    }
+
+    /**
+     * 加密
+     * @param encryptdata
+     * @return
+     */
+    public String encryptData(String encryptdata) {
+        String encrypt=null;
+        try {
+            encrypt = DESHelper.encrypt(encryptdata, config.getDes_key());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return encrypt;
+    }
+
+    /**
+     * 解密
+     * @param decryptdata
+     * @return
+     */
+    public String decryptData(String decryptdata){
+        String encrypt=null;
+        try {
+            encrypt = DESHelper.decrypt(decryptdata, config.getDes_key());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return encrypt;
     }
 }
 
