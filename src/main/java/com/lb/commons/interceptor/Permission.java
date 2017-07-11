@@ -2,9 +2,7 @@ package com.lb.commons.interceptor;
 
 import com.lb.commons.annotation.PowerBind;
 import com.lb.commons.controller.BaseController;
-import com.lb.commons.utils.RD;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +22,7 @@ public class Permission extends  HandlerInterceptorAdapter{
     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("权限拦截器");
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         PowerBind power=method.getAnnotation(PowerBind.class);

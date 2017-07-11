@@ -1,5 +1,6 @@
 package com.lb.core.controller;
 
+import com.lb.commons.annotation.PowerBind;
 import com.lb.commons.config.ApplicationConfig;
 import com.lb.commons.controller.BaseController;
 import com.lb.commons.utils.JsonHelper;
@@ -35,6 +36,7 @@ public class AdminController extends BaseController {
      * @return
      * @throws Exception
      */
+    @PowerBind("xxx")
     @RequestMapping(value = "/login")
     public Map<String,Object> login() throws Exception{
         String username=this.getPara("username");

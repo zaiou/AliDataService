@@ -60,7 +60,7 @@ public class BaseController {
     * @return
     */
     public int getAdminId(){
-        return 0;
+        return 1122;
     }
 
     /**
