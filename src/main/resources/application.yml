@@ -20,6 +20,15 @@ design:
     username: root
     password: root
 
+#redis数据库连接
+    redis:
+      masterName: mymaster
+      sentinels:
+        - host: 192.168.3.234
+          port: 26379
+        - host: 192.168.3.234
+          port: 26380
+
 spring: datasource:initialize:false
 
 spring.session.store-type: none
