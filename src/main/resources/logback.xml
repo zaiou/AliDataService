@@ -1,25 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-			</pattern>
-		</encoder>
-	</appender>
+<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	<encoder>
+		<pattern>%d{yyyy/MM/dd-HH:mm:ss}[%thread] %-5level %logger{36} - %msg%n
+		</pattern>
+		<charset>UTF-8</charset>
+	</encoder>
+</appender>
+<appender name="GLOBAL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<file>/logs/diangjiangla.log</file>
+	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<fileNamePattern>/logs/diangjiangla-%d{yyyy-MM-dd}.log</fileNamePattern>
+		<maxHistory>30</maxHistory>
+	</rollingPolicy>
+	<encoder><!-- 必须指定，否则不会往文件输出内容 -->
+		<pattern>%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+	</encoder>
+	<append>true</append>
+	<prudent>false</prudent>
+</appender>
+
+<appender name="EXCEPTION_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<file>/logs/exception.log</file>
+	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<fileNamePattern>/logs/exception-%d{yyyy-MM-dd}.log</fileNamePattern>
+		<maxHistory>30</maxHistory>
+	</rollingPolicy>
+	<encoder><!-- 必须指定，否则不会往文件输出内容 -->
+		<pattern>%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+	</encoder>
+	<append>true</append>
+	<prudent>false</prudent>
+</appender>
+
+<appender name="moneyFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<file>/logs/money.log</file>
+	<encoder><!-- 必须指定，否则不会往文件输出内容 -->
+		<pattern>%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger{5} - %msg%n</pattern>
+		<charset>UTF-8</charset>
+	</encoder>
+	<append>true</append>
+	<prudent>false</prudent>
+</appender>
+
+
+<logger name="com.sixi.ktpd.service.impl.EmployerInfoServiceImpl" level="INFO" additivity="true">
+	<appender-ref ref="moneyFileAppender"></appender-ref>
+</logger>
+
+<logger name="com.sixi.ktpd.controller.HirePayController" level="INFO" additivity="true">
+	<appender-ref ref="moneyFileAppender"></appender-ref>
+</logger>
+
+<logger name="com.sixi.ktpd.component.PaySalaryScheduler" level="INFO" additivity="true">
+	<appender-ref ref="moneyFileAppender"></appender-ref>
+</logger>
 
 <!-- 开发中模式，显示sql语句	 -->
-	<logger name="com.lb.demo.user.mapper" level="DEBUG"
-			additivity="false">
-		<appender-ref ref="STDOUT" />
-	</logger>
-	
-	<logger name="com.lb.demo.role.mapper" level="DEBUG"
-			additivity="false">
-		<appender-ref ref="STDOUT" />
-	</logger>
+<logger name="com.lb.core.order.mapper" level="DEBUG"
+		additivity="false">
+	<appender-ref ref="STDOUT" />
+</logger>
+
+<logger name="com.lb.core.product.mapper" level="DEBUG"
+				 additivity="false">
+	<appender-ref ref="STDOUT" />
+</logger>
+
+<logger name="com.lb.core.info.mapper" level="DEBUG"
+		additivity="false">
+	<appender-ref ref="STDOUT" />
+</logger>
+
+<logger name="com.sixi.ktpd.resolver" level="DEBUG" additivity="true">
+	<appender-ref ref="EXCEPTION_FILE"/>
+</logger>
 
 <!-- 日志等级设置 -->
-	<root level="INFO" additivity="true">
-		<appender-ref ref="STDOUT" />
-	</root>
-</configuration> 
+<root level="INFO" additivity="true">
+	<appender-ref ref="STDOUT" />
+	<appender-ref ref="GLOBAL_FILE"/>
+</root>
+</configuration>

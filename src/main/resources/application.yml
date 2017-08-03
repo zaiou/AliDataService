@@ -19,6 +19,13 @@ design:
     driver: com.mysql.jdbc.Driver
     username: root
     password: root
+# 第三个数据库
+  alidatainfo:
+   jdbc:
+    url: jdbc:mysql://127.0.0.1:3306/alidatainfo?characterEncoding=utf8&allowMultiQueries=true
+    driver: com.mysql.jdbc.Driver
+    username: root
+    password: root
 
 #redis数据库连接
     redis:

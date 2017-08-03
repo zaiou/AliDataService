@@ -40,7 +40,7 @@ public class RD {
     /**
      * 返回错误处理(data 默认为 null)
      * @param msg
-     * @param data
+     * @param msg
      * @return
      */
     public static RD error(String msg){
@@ -59,7 +59,7 @@ public class RD {
 
     /**
      * 成功处理(msg 默认为 "")
-     * @param msg
+     * @param data
      * @param data
      * @return
      */
@@ -69,8 +69,6 @@ public class RD {
 
     /**
      * 成功处理(msg 默认为 ""，data默认为null)
-     * @param msg
-     * @param data
      * @return
      */
     public static RD success(){

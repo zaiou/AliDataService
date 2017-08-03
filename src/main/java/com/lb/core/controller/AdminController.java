@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 废除--》jfinal登录模块做法
  * @author LB
  * @date 2017/6/29 15:53
  */

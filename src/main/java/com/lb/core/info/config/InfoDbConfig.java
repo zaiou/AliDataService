@@ -1,4 +1,4 @@
-package com.lb.core.order.config;
+package com.lb.core.info.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -20,20 +19,20 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * Created by LB on 2017/6/28.
+ * @author LB
+ * @date 2017/8/2 15:03
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = "com.lb.core.order.mapper", sqlSessionFactoryRef = "orderSqlSessionFactory")
-@EnableConfigurationProperties({OrderDbProperty.class})
-public class OrderDbConfig {
+@MapperScan(basePackages = "com.lb.core.info.mapper", sqlSessionFactoryRef = "infoSqlSessionFactory")
+@EnableConfigurationProperties({InfoDbProperty.class})
+public class InfoDbConfig {
     @Autowired
-    private OrderDbProperty property;
+    private InfoDbProperty property;
 
-    @Bean(name = "orderDataSource")
-    @Primary //多个bean冲突，优先使用此bean对象
+    @Bean(name = "infoDataSource")
     public DataSource dataSource() {
-        System.out.println("加载order数据库!!!");
+        System.out.println("加载info数据库!!!");
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUrl(property.getUrl());
         dataSource.setUsername(property.getUsername());
@@ -42,14 +41,12 @@ public class OrderDbConfig {
     }
 
     @Bean
-    @Primary
     public DataSourceTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
-    @Bean(name = "orderSqlSessionFactory")
-    @Primary
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("orderDataSource") DataSource dataSource) throws Exception {
+    @Bean(name = "infoSqlSessionFactory")
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("infoDataSource") DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setPlugins(plugins());

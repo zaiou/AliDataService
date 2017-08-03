@@ -19,18 +19,19 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
+ *
  * Created by LB on 2017/6/29.
  */
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = "com.lb.demo.role.mapper", sqlSessionFactoryRef = "productSqlSessionFactory")
+@MapperScan(basePackages = "com.lb.demo.product.mapper", sqlSessionFactoryRef = "productSqlSessionFactory")
 @EnableConfigurationProperties({ProductDbProperty.class })
 public class ProductDbConfig {
     @Autowired
     private ProductDbProperty property;
 
-    @Bean(name = "roleSqlDataSource")
+    @Bean(name = "productDataSource")
     public DataSource dataSource() {
         System.out.println("加载product数据库!!!");
         DruidDataSource dataSource = new DruidDataSource();
@@ -46,7 +47,7 @@ public class ProductDbConfig {
     }
 
     @Bean(name = "productSqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("roleSqlDataSource") DataSource dataSource) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("productDataSource") DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setPlugins(plugins());
