@@ -44,17 +44,17 @@
 </appender>
 
 
-<logger name="com.sixi.ktpd.service.impl.EmployerInfoServiceImpl" level="INFO" additivity="true">
+<logger name="com.lb.core.service.impl" level="INFO" additivity="true">
 	<appender-ref ref="moneyFileAppender"></appender-ref>
 </logger>
 
-<logger name="com.sixi.ktpd.controller.HirePayController" level="INFO" additivity="true">
+<logger name="com.lb.core.controller" level="INFO" additivity="true">
 	<appender-ref ref="moneyFileAppender"></appender-ref>
 </logger>
 
-<logger name="com.sixi.ktpd.component.PaySalaryScheduler" level="INFO" additivity="true">
-	<appender-ref ref="moneyFileAppender"></appender-ref>
-</logger>
+<!--<logger name="com.lb.commons.component" level="INFO" additivity="true">-->
+	<!--<appender-ref ref="moneyFileAppender"></appender-ref>-->
+<!--</logger>-->
 
 <!-- 开发中模式，显示sql语句	 -->
 <logger name="com.lb.core.order.mapper" level="DEBUG"
@@ -72,7 +72,7 @@
 	<appender-ref ref="STDOUT" />
 </logger>
 
-<logger name="com.sixi.ktpd.resolver" level="DEBUG" additivity="true">
+<logger name="com.lb.commons.handler" level="DEBUG" additivity="true">
 	<appender-ref ref="EXCEPTION_FILE"/>
 </logger>
 

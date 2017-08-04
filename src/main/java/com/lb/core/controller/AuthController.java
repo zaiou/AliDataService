@@ -2,6 +2,7 @@ package com.lb.core.controller;
 
 import com.lb.commons.constant.Constants;
 import com.lb.commons.constant.Status;
+import com.lb.commons.kits.UserKit;
 import com.lb.commons.utils.KeyValue;
 import com.lb.core.info.entity.User;
 import com.lb.core.service.impl.AuthServiceImpl;
@@ -29,10 +30,16 @@ public class AuthController {
 
     @RequestMapping(value = "login")
     public KeyValue login(String username,String password){
+        boolean flag=false;
+        logger.info("登录");
         if(StringUtils.isAnyEmpty(username,password)){
             return KeyValue.rd(Status.HTTP.FORBIDDEN, Constants.Auth.LOGIN_FAIL);
         }
         User user=authServiceImpl.login(username,password);
+        if(user!=null){
+            flag=true;
+            UserKit
+        }
         return KeyValue.rd(1,"",user);
     }
 }
